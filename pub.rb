@@ -8,8 +8,7 @@ class Pub
       @drinks = input_drinks
   end
 
-
-
+  
 
 
 end

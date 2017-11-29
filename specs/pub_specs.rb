@@ -28,5 +28,6 @@ class TestPub < Minitest::Test
     assert_equal(3, @pub.drinks.count)
   end
 
+  
 
 end

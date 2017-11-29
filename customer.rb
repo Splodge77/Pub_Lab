@@ -8,5 +8,9 @@ class Customer
   end
 
 
+  def can_afford?(drink)
+    return @wallet >= drink.price
+  end
+
 
 end
