@@ -15,6 +15,8 @@ class TestPub < Minitest::Test
   @chanter_till = 200
   @pub = Pub.new("Chanter", @chanter_till, @chanter_drinks)
   @customer1 = Customer.new("Robert", 100, 32, 0)
+  @customer2 = Customer.new("Zsolt", 500, 32, 450)
+  @customer3 = Customer.new("John", 500, 32, 600)
   end
 
 
@@ -36,11 +38,48 @@ class TestPub < Minitest::Test
     assert_equal(210, @pub.till)
   end
 
+
   def test_transaction
     @pub.transaction(@customer1, @drink2)
     assert_equal(210, @pub.till)
     assert_equal(90, @customer1.wallet)
   end
+
+  def test_too_drunk__false
+    assert_equal(false, @pub.too_drunk?(@customer1))
+  end
+
+  def test_too_drunk__true
+    assert_equal(true, @pub.too_drunk?(@customer3))
+  end
+
+  def test_pub_refuses_service__insufficient_funds
+    # 11.times{
+    #   @pub.transaction(@customer1, @drink2)
+    # }
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    @pub.transaction(@customer1, @drink2)
+    assert_equal(300, @pub.till())
+    assert_equal(0, @customer1.wallet())
+  end
+
+  def test_pub_refuses_service__too_drunk
+    # get a customer to test it with, and make them drink enough alcohol to go over the limit
+    @pub.transaction(@customer2, @drink2)
+    @pub.transaction(@customer2, @drink2)
+    assert_equal(210, @pub.till())
+    assert_equal(490, @customer2.wallet())
+    assert_equal(500, @customer2.drunkenness())
+  end
+
 
 
 end
