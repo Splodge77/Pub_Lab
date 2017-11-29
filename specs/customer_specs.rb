@@ -22,12 +22,16 @@ class TestCustomer < Minitest::Test
     assert_equal(true, @customer1.can_afford_drink?(@drink2))
   end
 
+  def test_customer_cant_buy_drink
+    assert_equal(false, @customer2.can_afford_drink?(@drink2))
+  end
+
   def test_customer_can_afford_food
     assert_equal(true, @customer1.can_afford_food?(@food1))
   end
 
-  def test_customer_cant_buy_drink
-    assert_equal(false, @customer2.can_afford_drink?(@drink2))
+  def test_customer_cant_afford_food
+    assert_equal(false, @customer2.can_afford_food?(@food1))
   end
 
   def test_customers_wallet_decreases_with_drink_purchase
@@ -46,6 +50,14 @@ class TestCustomer < Minitest::Test
   def test_drunkenness_level_when_drink_bought
     @customer1.buy_drink(@drink2)
     assert_equal(50, @customer1.drunkenness)
+  end
+
+  def test_customer_rejuvenated_when_food_bought
+    @customer1.buy_drink(@drink2)
+    @customer1.buy_drink(@drink2)
+    @customer1.buy_food(@food2)
+    assert_equal(70, @customer1.wallet)
+    assert_equal(0, @customer1.drunkenness)
   end
 
 end

@@ -23,6 +23,12 @@ class Customer
     @drunkenness += drink_to_buy.alcohol_level
   end
 
+  def buy_food(food_to_buy)
+    @wallet -= food_to_buy.price
+    @drunkenness -= food_to_buy.rejuv
+    @drunkenness = 0 if @drunkenness < 0
+  end
+
   def old_enough?()
     return @age >= 18
   end
