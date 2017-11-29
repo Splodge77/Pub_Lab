@@ -7,11 +7,11 @@ require_relative('../drink.rb')
 class TestCustomer < Minitest::Test
 
   def setup
-    @customer1 = Customer.new("Robert", 100, 32)
-    @customer2 = Customer.new("Max", 0, 17)
-    @drink1 = Drink.new("Lager", 5)
-    @drink2 = Drink.new("Vodka", 10)
-    @drink3 = Drink.new("Jager", 1)
+    @customer1 = Customer.new("Robert", 100, 32, 0)
+    @customer2 = Customer.new("Max", 0, 17, 0)
+    @drink1 = Drink.new("Lager", 5, 20)
+    @drink2 = Drink.new("Vodka", 10, 50)
+    @drink3 = Drink.new("Jager", 1, 100)
   end
 
   def test_customer_can_buy_drink
@@ -33,6 +33,11 @@ class TestCustomer < Minitest::Test
 
   def test_no_old_enough_to_buy_drink
     assert_equal(false, @customer2.old_enough?)
+  end
+
+  def test_drunkenness_level_when_drink_bought
+    @customer1.buy_drink(@drink2)
+    assert_equal(50, @customer1.drunkenness)
   end
 
 end
