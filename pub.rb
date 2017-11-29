@@ -14,7 +14,8 @@ class Pub
   end
 
   def transaction(customer, drink)
-    return if !(customer.can_afford?(drink))
+    return if !(customer.can_afford_drink?(drink))
+    return if !(customer.old_enough?())
     return if too_drunk?(customer)
     sell_drink(drink)
     customer.buy_drink(drink)

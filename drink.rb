@@ -8,6 +8,4 @@ class Drink
       @alcohol_level = alcohol_level
   end
 
-
-
 end

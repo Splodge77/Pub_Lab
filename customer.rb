@@ -10,8 +10,12 @@ class Customer
   end
 
 
-  def can_afford?(drink)
+  def can_afford_drink?(drink)
     return @wallet >= drink.price
+  end
+
+  def can_afford_food?(food)
+    return @wallet >= food.price
   end
 
   def buy_drink(drink_to_buy)
