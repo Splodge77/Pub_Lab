@@ -16,4 +16,8 @@ class Customer
   def buy_drink(drink_to_buy)
     @wallet -= drink_to_buy.price
   end
+
+  def old_enough?()
+    return @age >= 18
+  end
 end
